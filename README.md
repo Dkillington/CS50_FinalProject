@@ -2,7 +2,7 @@ cmd# YouTube Channel Statistics Website and WebScrape Tool
 #### Video Demo:  https://youtu.be/VyfFdgA0z2Q?si=FyU1h7_sBEkRvgYK
 #### Description:
 
-I created a website that displays statistics on any YouTube channel that is within the 'youtube.db' database.
+I created a website that displays statistics on any YouTube channel within the 'youtube.db' database.
 Channels are entered into the database using a WebScrape tool I created in 'webScraper.py'. Each step is described in detail below:
 
 
@@ -44,18 +44,15 @@ How To Use:
 3. Open this folder into a code editor (Visual Studio Code)
 4. Open a terminal window and do the following:
     1. Pip install necessary files (Write the following lines in the terminal)
-        - # pip install selenium
-        - # pip install Flask-Session
-        - # pip install -U Flask
+        - pip install selenium
+        - pip install Flask-Session
+        - pip install -U Flask
     2. Create a virtual environment (CTRL + SHIFT + P)
 
-5. Use Webscraper
-    - Open webScraper.py
-    - Write: Scrape("YoutubeChannelNameHere")
-    - Run file and wait for it to finish
-    - REMOVE your 'Scrape' code
-    
-6. Use website
-    - Open terminal window in code editor
-    - Write: python -m flask run
-    - Click 'Running on HTTPS:____' link
+5. Run run.py
+   - View terminal window
+        1. Press 1 to scrape YouTube channel data
+            - Type channel name and wait for it to finish
+        2. Press 2 to launch website
+            - Click the "Running on http://__________" link that appears in the terminal to view the site
+            - Press Ctrl+C to end

@@ -36,8 +36,8 @@ def Scrape(given_YouTubeChannelName):
     # Create driver using Chrome
     driver = webdriver.Chrome(options = customOptions)
 
+    # Check if SQL table exists and create one if it doesnt
     def CreateSQLTable():
-        # Test if table exists and if not create it
         try:
             cursor.execute(tools.returnAllData)
         except Exception:

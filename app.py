@@ -14,12 +14,18 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+def CreateSQLTable():
+    # Test if table exists and if not create it
+    try:
+        cursor.execute(tools.returnAllData)
+    except Exception:
+        cursor.execute(tools.createTable)
 
 # Jinja function to display a month name after taking in a number (Ex. 12 becomes December)
 @app.context_processor
 def utility_processor():
     def numToMonth(number):
-        dayToMonth = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
+        dayToMonth = {None: "None", 1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
         return dayToMonth[number]
     return dict(numToMonth=numToMonth)
 
@@ -27,7 +33,8 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def commaNumber(number):
-        return ("{:,}".format(number))
+        if number != None:
+            return ("{:,}".format(number))
     return dict(commaNumber=commaNumber)
 
 
@@ -36,12 +43,7 @@ db = sqlite3.connect(tools.databaseName, check_same_thread=False)
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
 
-# Enter into Terminal to run Flask:
-    # python -m flask run
-
-# --- To Add YouTube Channel: Enter Web Crawl Command HERE! ---
-        # (Ex. webScraper.Scrape("ChannelName"))
-
+CreateSQLTable()
 
 # Function that takes in sqlite commands and returns a list of dictionaries
 def To_List(execution):
@@ -138,9 +140,12 @@ def index():
 @app.route("/databaseInfo", methods=["GET", "POST"])
 def askForAllChannels():
     if request.method == "GET":
-        # Get all information for channel!
-        (allTables, videoCount, totalComments, totalViews, mostVideoChannels) = ReturnTotalDatabaseInfo()
-        return render_template("databaseInfoDisplay.html", allTables = allTables, videoCount = videoCount, totalComments = totalComments, totalViews = totalViews, mostVideoChannels = mostVideoChannels)
+        if (To_List(cursor.execute("SELECT COUNT(*) FROM videos")) == None):
+           return redirect("/")
+        else:
+            # Get all information for channel!
+            (allTables, videoCount, totalComments, totalViews, mostVideoChannels) = ReturnTotalDatabaseInfo()
+            return render_template("databaseInfoDisplay.html", allTables = allTables, videoCount = videoCount, totalComments = totalComments, totalViews = totalViews, mostVideoChannels = mostVideoChannels)
     else:
         return redirect("/")
 
@@ -150,7 +155,6 @@ def askForChannel():
     if request.method == "GET":
         youtubeChannelNames = []
         returnedListDict = To_List(cursor.execute("SELECT DISTINCT author FROM videos"))
-
         for eachDict in returnedListDict:
             youtubeChannelNames.append(eachDict["author"])
 
@@ -170,4 +174,11 @@ def askForChannel():
 # Functionality to show statistics of a YouTube channel
 @app.route("/about", methods=["GET", "POST"])
 def about():
-    return render_template("channelInfoDisplay.html")
+    return render_template("about.html")
+
+def runApp():
+    app.run()
+
+if(__name__ == "__main__"):
+    app.run()
+
