@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+All Stats
+
+{% endblock %}
+
+{% block main %}
+<h1 class = "special"><b>Database Statistics</b></h1>
+<br><br>
+<table>
+    <h2>General Database Stats</h2>
+    <tr class = "specialRow"><td><b>Total Videos</b></td><td><b>Total Comments</b></td><td><b>Total Views</b></td></tr>
+    <tr><td>{{ commaNumber(videoCount) }}</td><td>{{ commaNumber(totalComments) }}</td><td>{{ commaNumber(totalViews) }}</td></tr>
+</table>
+<br>
+<table>
+    <h2>Channels With Most Videos</h2>
+    <tr class = "specialRow"><td><b>Channel</b></td><td><b>Total Videos</b></td></tr>
+    {% for dicts in mostVideoChannels %}
+        <tr>
+        {% for key, value in dicts.items() %}
+            {% if key == "SUM" %}
+                <td>{{ commaNumber(value) }}</td>
+            {% else %}
+                <td>{{ value }}</td>
+            {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<br>
+{% for tables in allTables %}
+<table>
+    {% for key, value in tables.items()%}
+        {% if key == "tableTitle" %}
+            <h2>{{ tables["tableTitle"] }}</h2>
+            <tr class = "specialRow"><td><b>Channel</b></td><td><b>Title</b></td><td><b>Views</b></td><td><b>Comments</b></td><td><b>Month</b></td><td><b>Day</b></td><td><b>Year</b></td></tr>
+        {% elif key == "dictList" %}
+            {% for dicts in tables["dictList"] %}
+                <tr>
+                {% for key, value in dicts.items() %}
+                    {% if key == "comments" %}
+                        {% if value <= -1 %}
+                            <td> None Allowed </td>
+                        {% else %}
+                            <td> {{ commaNumber(value) }} </td>
+                        {% endif %}
+                    {% elif key == "title" %}
+                        <td><a href = {{ dicts["url"] }}> "{{ value }}" </a></td>
+                    {% elif key == "dateMonth" %}
+                        <td>{{ numToMonth(value)}} </td>
+                    {% elif key == "views" %}
+                        <td>{{ commaNumber(value)}} </td>
+                    {% elif key == "url" %}
+                    {% else %}
+                        <td> {{ value }}</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    {% endfor %}
+</table>
+<br>
+{% endfor %}
+{% endblock %}

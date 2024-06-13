@@ -1,0 +1,171 @@
+
+table
+{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    height: 50%;
+    border: solid 2pt black;
+    word-wrap: break-word;
+    background-color: white;
+}
+
+td
+{
+    text-align: center;
+    width: fit-content;
+    word-wrap: break-word;
+    border: solid 1px black;
+}
+
+tr
+{
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    width: fit-content;
+}
+
+
+.special
+{
+    text-decoration: underline;
+    font-size: 40px;
+}
+
+.specialRow
+{
+    background-color: silver;
+}
+
+.specialh1
+{
+    padding: 10px;
+    font-size: 40px;
+    text-decoration: underline;
+    font-family:system-ui
+}
+h1
+{
+    text-align: center;
+}
+h2
+{
+    text-decoration:  underline;
+    font-family: fantasy;
+}
+
+main
+{
+    background-color: lightblue;
+}
+
+.container
+{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
+    border: solid 2pt black;
+    word-wrap: break-word;
+    background-color: white;
+    border-radius: 30px;
+}
+
+nav
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: fit-content;
+    border: solid 3px black;
+}
+.innerDiv
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: fit-content;
+}
+
+li
+{
+    border: 2px solid black;
+}
+
+body
+{
+    background-color: lightblue;
+}
+
+.header
+{
+    display: flex;
+    border: solid 2px black;
+    padding: 20px;
+    background-color: white;
+    width: auto;
+    height: 90px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttonBar
+{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: white;
+    align-items: center;
+    width: auto;
+    height: auto;
+    flex-direction: row;
+
+}
+
+.headerBar
+{
+    padding: 20px;
+    text-decoration: underline;
+}
+
+button
+{
+    padding: 5px 15px;
+    border: solid 2px black;
+    border-radius: 15px;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+}
+
+.aboutBox
+{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    width: 400px;
+    height: fit-content;
+    border: solid 2pt black;
+    word-wrap: break-word;
+    background-color: white;
+}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Enter a Youtube Channel
+{% endblock %}
+
+{% block main %}
+<div class = "container">
+    <h1 class = "specialh1">Select a Channel</h1>
+    <br>
+    <form action="/channelInfo" method="post">
+        <select style = "height: 30px; width: 200px;" required name="channelAuthor" id="channelAuthor">
+            {% for names in inputChannelNames %}
+                <option style = "width: 70px;" value="{{ names|e }}">{{ names|e }} </option>
+            {% endfor %}
+        </select>
+        <button>Submit</button>
+    </form>
+</div>
+{% endblock %}
