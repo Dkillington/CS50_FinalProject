@@ -167,18 +167,15 @@ def Scrape(given_YouTubeChannelName):
                     title_XPath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-watch-metadata/div/div[1]/h1/yt-formatted-string"
                     views_XPath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-watch-metadata/div/div[4]/div[1]/div/ytd-watch-info-text/div/yt-formatted-string/span[1]"
                     commentTurnedOff_XPath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-message-renderer/yt-formatted-string[1]/span"
-                    commentCount_XPath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[1]/ytd-comments-header-renderer/div[1]/h2/yt-formatted-string/span[1]"
-
                     commentCount_XPath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[1]/ytd-comments-header-renderer/div[1]/div[1]/h2/yt-formatted-string/span[1]"
-
                     date_XPath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-watch-metadata/div/div[4]/div[1]/div/ytd-watch-info-text/div/yt-formatted-string/span[3]"
 
                     # Grab each specific text element
                     title = ReturnTextFromPage("video title", title_XPath) # Return video title
-                    print(title)
+                    print("Title: " + title)
                     views = ReturnTextFromPage("view count", views_XPath) # Return video views
                     views = views.split()[0].replace(",", "") if views != None else None # If views were found, grab only the number
-                    print(views)
+                    print("Views:" + views)
                     commentsDisabled = ReturnTextFromPage("comment disabled", commentTurnedOff_XPath, 2) # Check to see if a 'Comments Disabled' bar exists on the video
                     # If a 'Comment Disabled' section can't be found, assume comments exist and count them
                     if commentsDisabled == None:
@@ -188,7 +185,7 @@ def Scrape(given_YouTubeChannelName):
                     # Else, note that comments werent allowed
                     else:
                         commentCount = "-1"
-                    print(commentCount)
+                    print("Comments: " + commentCount)
                     date = ReturnTextFromPage("date", date_XPath) # Return the date of the video
                     # Split up date accordingly if the date above returns a value, or else assign each value to 'None'
                     if date != None:
@@ -202,7 +199,7 @@ def Scrape(given_YouTubeChannelName):
                         dateMonth = dateSplit[0  + adder].strip(",")
                         dateDay = dateSplit[1 + adder].strip(",")
                         dateYear = dateSplit[2 + adder]
-                    print(date)
+                    print("Date: " + date)
                 # Create a dictionary for all video data
                 videoData = {"author": youTubeChannelName, "title": title, "views": views, "comments": commentCount, "dateDay": dateDay, "dateMonth": dateMonth, "dateYear": dateYear, "url": currentVideoURL}
                 # End current driver
