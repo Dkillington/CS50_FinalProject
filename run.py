@@ -11,6 +11,7 @@ answer = input()
 if(answer == "1"):
     print("Type channel name here:")
     webScraper.Scrape(input())
+    
 # Run website
 elif(answer == "2"):
     app.runApp()

@@ -36,7 +36,6 @@ def Scrape(given_YouTubeChannelName):
     # Create driver using Chrome
     driver = webdriver.Chrome(options = customOptions)
 
-    # Check if SQL table exists and create one if it doesnt
     def CreateSQLTable():
         try:
             cursor.execute(tools.returnAllData)
@@ -47,7 +46,6 @@ def Scrape(given_YouTubeChannelName):
         # Ensure given channel name is a string and is properly formatted
         return "@" + str(channelName)
 
-
     def ReturnValidYoutubeURL(urlEnding):
         # Return a complete YouTube URL with the given URL attached to the end
             # This is good for entering a channel name and minimizes URL mispelling
@@ -57,7 +55,6 @@ def Scrape(given_YouTubeChannelName):
 
     def Return_VideoLinks(urlEnding):
         def PopulateScreen():
-        # Loop forever...
             while(True):
             # Try to grab the area on YouTube that causes the page to load more videos (Goal is to have every channel video on the screen)
                 try:
@@ -90,7 +87,6 @@ def Scrape(given_YouTubeChannelName):
 
         # Return all video links
         return links
-
 
     def CleanseList(inputDictionaryList):
         # Empty list of removed URLs
