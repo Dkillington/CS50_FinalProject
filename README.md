@@ -62,6 +62,3 @@ There are 5 essential steps in this process:
     (There is also a 'View Database' page, which does this process but for all channels at once)
 
 - Selenium Web Driver: https://selenium-python.readthedocs.io/installation.html#introduction
-
-
-
