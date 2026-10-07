@@ -1,18 +1,17 @@
 import os
 import tools
 import sqlite3
-from flask import Flask, flash, redirect, render_template, request, session
-from flask_session import Session
+from flask import Flask, redirect, render_template, request
 from time import strftime
-import webScraper
 
 # Configure application
 app = Flask(__name__)
 
-# Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+@app.context_processor
+def dataset_notice():
+    exists = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dataset_metadata'").fetchone()
+    sample = exists and db.execute("SELECT 1 FROM dataset_metadata WHERE key='sample_data' AND value='true'").fetchone()
+    return {"sample_data": bool(sample)}
 
 def CreateSQLTable():
     # Test if table exists and if not create it
@@ -83,6 +82,10 @@ def ReturnChannelInfo(channelName):
     averageViews = To_List(cursor.execute("SELECT ROUND(AVG(views), 2) as AVE FROM videos WHERE author = ?", (channelName, )))[0]["AVE"]
 
 
+    totalComments = totalComments or 0
+    totalViews = totalViews or 0
+    averageComments = averageComments or 0
+    averageViews = averageViews or 0
     if totalComments < 0:
         totalComments = 0
     if averageComments < 0:
@@ -161,14 +164,14 @@ def askForChannel():
         return render_template("channelInfo.html", inputChannelNames = youtubeChannelNames)
 
     else:
-        if not request.form.get("channelAuthor"):
-            print("ERROR!")
+        channel = request.form.get("channelAuthor", "")
+        if not channel or not cursor.execute("SELECT 1 FROM videos WHERE author = ? LIMIT 1", (channel,)).fetchone():
             return redirect("/")
         else:
             # Get all information for channel!
-            (channelName, allTables, videoCount, totalComments, totalViews, averageComments, averageViews) = ReturnChannelInfo(request.form.get("channelAuthor"))
+            (channelName, allTables, videoCount, totalComments, totalViews, averageComments, averageViews) = ReturnChannelInfo(channel)
 
-            return render_template("channelInfoDisplay.html", channelName = str.capitalize(channelName), allTables = allTables, videoCount = videoCount, totalComments = totalComments, totalViews = totalViews, averageComments = averageComments, averageViews = averageViews)
+            return render_template("channelInfoDisplay.html", channelName = channelName, allTables = allTables, videoCount = videoCount, totalComments = totalComments, totalViews = totalViews, averageComments = averageComments, averageViews = averageViews)
 
 
 # Functionality to show statistics of a YouTube channel

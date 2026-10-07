@@ -1,3 +1,30 @@
+# YouTube Channel Stats
+
+[**Download YouTubeChannelStats.exe**](https://github.com/Dkillington/CS50_FinalProject/releases/latest/download/YouTubeChannelStats.exe)
+
+Save the EXE and double-click it on Windows 10 or 11, 64-bit. It opens the original Flask dashboard in your browser. Python, Flask, SQLite, and offline interface assets are included. No setup, terminal, Python installation, or YouTube account is needed. Close the launcher window to stop the server.
+
+**Includes sample data:** the first launch creates 24 fictional video records in three clearly labeled sample channels. A banner identifies sample data on every page. These are demonstration values, not real YouTube statistics. The original project demonstration remains available below.
+
+Your database lives in `%LOCALAPPDATA%\YouTubeChannelStats\youtube.db`. To view your existing collected data, close the launcher, back up that file, and replace it with your own `youtube.db` using the original `videos` schema. Existing databases are never overwritten or mixed with sample rows. Advanced users can pass `--data-dir "C:\my-data"` to choose another data folder.
+
+## Running or building from source
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-build.txt
+.\.venv\Scripts\python.exe launcher.py
+.\scripts\Build-Release.ps1 -Python .\.venv\Scripts\python.exe
+```
+
+The build produces `dist/YouTubeChannelStats.exe`. Run `launcher.py --self-test --data-dir "C:\temporary-test-data"` to check all dashboard pages, bundled styles, channel queries, and invalid selections. The EXE accepts the same options. The local server binds only to `127.0.0.1` on an available port.
+
+## Optional scraper
+
+The executable is the statistics viewer. The original scraper remains in source for collecting your own data. Install `requirements-scraper.txt`, then run `run.py` and select option 1. It requires Chrome and may need maintenance as YouTube changes. Normal dashboard launch does not import Selenium or start scraping.
+
+## Original CS50 project
+
 YouTube Channel Statistics Website and WebScrape Tool
 #### Video Demo:  https://youtu.be/VyfFdgA0z2Q?si=FyU1h7_sBEkRvgYK
 #### Description:
@@ -38,21 +65,3 @@ There are 5 essential steps in this process:
 
 
 
-How To Use:
-1. Download all files from github as a ZIP
-2. Extract all files into a single folder
-3. Open this folder into a code editor (Visual Studio Code)
-4. Open a terminal window and do the following:
-    1. Pip install necessary files (Write the following lines in the terminal)
-        - pip install selenium
-        - pip install Flask-Session
-        - pip install -U Flask
-    2. Create a virtual environment (CTRL + SHIFT + P)
-
-5. Run run.py
-   - View terminal window
-        1. Press 1 to scrape YouTube channel data
-            - Type channel name and wait for it to finish
-        2. Press 2 to launch website
-            - Click the "Running on http://__________" link that appears in the terminal to view the site
-            - Press Ctrl+C to end

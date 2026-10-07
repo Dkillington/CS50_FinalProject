@@ -1,4 +1,3 @@
-import webScraper
 import app
 from flask import Flask
  
@@ -9,6 +8,7 @@ answer = input()
 
 # Use Webscraper
 if(answer == "1"):
+    import webScraper
     print("Type channel name here:")
     webScraper.Scrape(input())
     

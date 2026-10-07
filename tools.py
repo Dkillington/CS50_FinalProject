@@ -1,4 +1,6 @@
-databaseName = "youtube.db"
+import os
+
+databaseName = os.environ.get("YOUTUBE_STATS_DATABASE", "youtube.db")
 
 createTable = "CREATE TABLE videos (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, title TEXT, views INTEGER, comments INTEGER, dateDay INTEGER, dateMonth INTEGER, dateYear INTEGER, url TEXT)"
 clearTable1 = "DELETE FROM videos"
